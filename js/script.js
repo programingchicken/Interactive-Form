@@ -53,7 +53,10 @@ email.addEventListener('input', (e) => {
     }
 });
 
+
+
 //payment hint credit card
+creditCard.style.display = "";
 payment.addEventListener('change', (e) => {
     const paymentEvent = e.target;
     if (paymentEvent.value === 'credit-card') {
@@ -145,10 +148,13 @@ color.style.display = "none";
 //defferent disigns for shirts
 design.addEventListener('change', (e) => {
     const designEvent = e.target;
-    const colorText = document.getElementById('color').textContent
+    const colorText = document.getElementById('color')
+
     if (designEvent.textContent !== 'Select Theme') {
         color.style.display = "";
-
+        colorText.value = "preSelect"
+        console.log(colorText.options[0])
+        //.prop('val','preSelect');
         for (i = 1; i <= colorChild.length - 1; i++) {
             const valid = colorChild[i].getAttribute('data-theme');
             valueDesign = designEvent.value;
@@ -158,8 +164,11 @@ design.addEventListener('change', (e) => {
                 colorChild[i].style.display = "none";
             }
         }
+    } else if (designEvent.textContent !== 'Theme - JS Puns') {
+
     }
 });
+
 
 //job-role text box
 jobRole.addEventListener('change', (e) => {
@@ -172,7 +181,7 @@ jobRole.addEventListener('change', (e) => {
 });
 
 //submit 
-form.addEventListener('click', (e) => {
+form.addEventListener('submit', (e) => {
     if (e.target.id === "submit") {
         console.log('hi')
         form.innerHTML = "You Completed The Form!!!"
