@@ -1,7 +1,8 @@
 //variables for elements
-const name = document.getElementById('name');
+const names = document.getElementById('name');
 const design = document.getElementById('design');
 const color = document.getElementById('shirt-colors');
+const colorOptions = document.getElementById('color')
 const colorChild = document.getElementById('color').children
 const jobRole = document.getElementById('title');
 const otherJobRole = document.getElementById('other-job-role');
@@ -21,6 +22,11 @@ bitcoin.style.display = "none";
 const creditSpan = document.getElementById('cc-hint');
 const zipSpan = document.getElementById('zip-hint')
 const cvvSpan = document.getElementById('cvv-hint')
+const credit = document.getElementById('cc-num');
+const zip = document.getElementById('zip')
+const cvv = document.getElementById('cvv')
+const expMonth = document.getElementById("exp-month")
+const expYear = document.getElementById("exp-year")
 
 //email elements
 const email = document.getElementById('email');
@@ -29,13 +35,15 @@ const nameSpan = document.getElementById('name-hint');
 
 
 //name hint
-name.addEventListener('input', (e) => {
+names.addEventListener('input', (e) => {
     const nameEvent = e.target;
     if (nameEvent.getAttribute('type') === 'text') {
         if (nameEvent.value === "") {
             nameSpan.className = "name";
+            names.className = 'error'
         } else {
             nameSpan.className = 'name-hint hint'
+            names.className = 'error-border'
         }
     }
 })
@@ -44,10 +52,12 @@ name.addEventListener('input', (e) => {
 email.addEventListener('input', (e) => {
     const emailInput = e.target
     if (emailInput.getAttribute('type') === 'email') {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(emailInput.value)) {
-            emailSpan.className = 'email-hint hint';
-        } else {
+        if (/^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.(?:[a-zA-Z]{2}))?)$/.test(emailInput.value)) {
             emailSpan.className = 'email';
+            email.className = 'error'
+        } else {
+            emailSpan.className = 'email-hint hint';
+            email.className = 'error-border'
         }
 
     }
@@ -81,45 +91,58 @@ payment.addEventListener('change', (e) => {
 //payment hint debit card
 creditCard.addEventListener('input', (e) => {
     const creditCardEvent = e.target;
-    if (creditCardEvent.getAttribute('id') === "exp-month") {
-        console.log(1)
-    } else if (creditCardEvent.getAttribute('id') === 'exp-year') {
-        console.log(2)
-    } else if (creditCardEvent.getAttribute('id') === 'cc-num') {
+    if (expMonth.value !== "0") {
+        expMonth.className = 'error-border'
+    } else {
+        expMonth.className = 'error'
+    }
+    if (expYear.value !== '0') {
+        expYear.className = 'error-border'
+    } else {
+        expYear.className = 'error'
+    }
+    if (creditCardEvent.getAttribute('id') === 'cc-num') {
         if (/^([0-9]{13,16})$/.test(creditCardEvent.value)) { //fix
+            credit.className = "error-border"
             creditSpan.className = 'cc-hint hint';
         } else if (creditCardEvent.value === '') {
-            creditSpan.className = 'cc-hint hint';
+            credit.className = "error"
+            creditSpan.className = 'cc';
         } else {
+            credit.className = "error"
             creditSpan.className = 'cc';
         }
         console.log(3)
     } else if (creditCardEvent.getAttribute('id') === 'zip') {
         if (/^([0-9]{5})$/.test(creditCardEvent.value)) {
+            zip.className = "error-border"
             zipSpan.className = 'zip-hint hint';
         } else if (creditCardEvent.value === '') {
-            zipSpan.className = 'zip-hint hint';
+            zip.className = "error"
+            zipSpan.className = 'zip';
         } else {
+            zip.className = "error"
             zipSpan.className = 'zip';
         }
         console.log(4)
     } else if (creditCardEvent.getAttribute('id') === 'cvv') {
         if (/^([0-9]{3})$/.test(creditCardEvent.value)) {
+            cvv.className = "error-border"
             cvvSpan.className = 'cvv-hint hint';
         } else if (creditCardEvent.value === '') {
-            cvvSpan.className = 'cvv-hint hint';
+            cvv.className = "error"
+            cvvSpan.className = 'cvv';
         } else {
+            cvv.className = "error"
             cvvSpan.className = 'cvv';
         }
         console.log(5)
     }
 });
 
-
-
-//Activity check box for adding how much it cost
+// Activity check box for adding how much it cost
 registerForActivites.addEventListener('change', (e) => {
-    checkboxs = e.target
+    const checkboxs = e.target
     let realCost = 0;
     if (checkboxs.type === 'checkbox') {
         if (checkboxs.checked) {
@@ -140,19 +163,26 @@ registerForActivites.addEventListener('change', (e) => {
 
 console.log(registerForActivites);
 console.log(total$);
-name.focus();
-console.log(name)
+names.focus();
+console.log(names)
 otherJobRole.style.display = "none";
-color.style.display = "none";
+colorOptions.disabled = true;
 
 //defferent disigns for shirts
 design.addEventListener('change', (e) => {
     const designEvent = e.target;
     const colorText = document.getElementById('color')
-
+    //fixed issue
     if (designEvent.textContent !== 'Select Theme') {
-        color.style.display = "";
-        colorText.value = "preSelect"
+        colorOptions.disabled = false;
+        if (designEvent.value === 'js puns') {
+            colorText.value = "cornflowerblue"
+        } else if (designEvent.value === 'heart js') {
+            colorText.value = "tomato"
+        } else {
+            console.log('oops')
+        }
+
         console.log(colorText.options[0])
         //.prop('val','preSelect');
         for (i = 1; i <= colorChild.length - 1; i++) {
@@ -182,9 +212,76 @@ jobRole.addEventListener('change', (e) => {
 
 //submit 
 form.addEventListener('submit', (e) => {
-    if (e.target.id === "submit") {
+    e.preventDefault();
+    if (expMonth.value !== "0") {
+        expMonth.className = 'error-border'
+    } else {
+        expMonth.className = 'error'
+    }
+    if (expYear.value !== '0') {
+        expYear.className = 'error-border'
+    } else {
+        expYear.className = 'error'
+    }
+    if (/^([0-9]{13,16})$/.test(credit.value)) { //fix
+
+        credit.className = "error-border"
+        creditSpan.className = 'cc-hint hint';
+    } else if (credit.value === '') {
+        credit.className = "error"
+        creditSpan.className = 'cc';
+    } else {
+        credit.className = "error"
+        creditSpan.className = 'cc';
+    }
+    if (/^([0-9]{5})$/.test(zip.value)) {
+        zip.className = "error-border"
+        zipSpan.className = 'zip-hint hint';
+    } else if (zip.value === '') {
+        zip.className = "error"
+        zipSpan.className = 'zip';
+    } else {
+        zip.className = "error"
+        zipSpan.className = 'zip';
+    }
+    if (/^([0-9]{3})$/.test(cvv.value)) {
+        cvv.className = "error-border"
+        cvvSpan.className = 'cvv-hint hint';
+    } else if (cvv.value === '') {
+        cvv.className = "error"
+        cvvSpan.className = 'cvv';
+    } else {
+        cvv.className = "error"
+        cvvSpan.className = 'cvv';
+    }
+    console.log(5)
+    if (/^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.(?:[a-zA-Z]{3}))?)$/.test(email.value)) {
+        email.className = 'error-border'
+        emailSpan.className = 'email-hint hint';
+    } else if (email.value === "") {
+        email.className = 'error'
+        emailSpan.className = 'email';
+    } else {
+        email.className = 'error'
+        emailSpan.className = 'email';
+    }
+    if (names.value === "") {
+        names.className = 'error'
+        nameSpan.className = "name";
+    } else {
+        names.className = 'error-border'
+        nameSpan.className = 'name-hint hint'
+    }
+    if (total$.textContent === 'Total: $0') {
+        registerForActivites.className = 'activities-box'
+    } else {
+        registerForActivites.className = 'activities-box error-border'
+    }
+    if (zipSpan.className === 'zip-hint hint' && cvvSpan.className === 'cvv-hint hint' && total$.textContent !== 'Total: $0' && nameSpan.className === "name-hint hint" && creditSpan.className === "cc-hint hint" && emailSpan.className === "email-hint hint" && expMonth.value !== "0" && expYear.value !== "0" ) {
         console.log('hi')
         form.innerHTML = "You Completed The Form!!!"
+    } else {
+        console.log('oops')
     }
 })
 
