@@ -40,7 +40,7 @@ names.addEventListener('input', (e) => {
     if (nameEvent.getAttribute('type') === 'text') {
         if (nameEvent.value === "") {
             nameSpan.className = "name";
-            names.className = 'error'
+            names.className = 'not-valid error'
         } else {
             nameSpan.className = 'name-hint hint'
             names.className = 'error-border'
@@ -54,7 +54,7 @@ email.addEventListener('input', (e) => {
     if (emailInput.getAttribute('type') === 'email') {
         if (/^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.(?:[a-zA-Z]{2}))?)$/.test(emailInput.value)) {
             emailSpan.className = 'email';
-            email.className = 'error'
+            email.className = 'not-valid error'
         } else {
             emailSpan.className = 'email-hint hint';
             email.className = 'error-border'
@@ -82,7 +82,7 @@ payment.addEventListener('change', (e) => {
         creditCard.style.display = "none";
         paypal.style.display = "none";
     } else {
-        console.log('error');
+        console.log('not-valid error');
     }
 })
 
@@ -94,22 +94,22 @@ creditCard.addEventListener('input', (e) => {
     if (expMonth.value !== "0") {
         expMonth.className = 'error-border'
     } else {
-        expMonth.className = 'error'
+        expMonth.className = 'not-valid error'
     }
     if (expYear.value !== '0') {
         expYear.className = 'error-border'
     } else {
-        expYear.className = 'error'
+        expYear.className = 'not-valid error'
     }
     if (creditCardEvent.getAttribute('id') === 'cc-num') {
         if (/^([0-9]{13,16})$/.test(creditCardEvent.value)) { //fix
             credit.className = "error-border"
             creditSpan.className = 'cc-hint hint';
         } else if (creditCardEvent.value === '') {
-            credit.className = "error"
+            credit.className = "not-valid error"
             creditSpan.className = 'cc';
         } else {
-            credit.className = "error"
+            credit.className = "not-valid error"
             creditSpan.className = 'cc';
         }
         console.log(3)
@@ -118,10 +118,10 @@ creditCard.addEventListener('input', (e) => {
             zip.className = "error-border"
             zipSpan.className = 'zip-hint hint';
         } else if (creditCardEvent.value === '') {
-            zip.className = "error"
+            zip.className = "not-valid error"
             zipSpan.className = 'zip';
         } else {
-            zip.className = "error"
+            zip.className = "not-valid error"
             zipSpan.className = 'zip';
         }
         console.log(4)
@@ -130,10 +130,10 @@ creditCard.addEventListener('input', (e) => {
             cvv.className = "error-border"
             cvvSpan.className = 'cvv-hint hint';
         } else if (creditCardEvent.value === '') {
-            cvv.className = "error"
+            cvv.className = "not-valid error"
             cvvSpan.className = 'cvv';
         } else {
-            cvv.className = "error"
+            cvv.className = "not-valid error"
             cvvSpan.className = 'cvv';
         }
         console.log(5)
@@ -214,70 +214,70 @@ jobRole.addEventListener('change', (e) => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (expMonth.value !== "0") {
-        expMonth.className = 'error-border'
+        expMonth.className = 'valid'
     } else {
-        expMonth.className = 'error'
+        expMonth.className = 'not-valid error'
     }
     if (expYear.value !== '0') {
-        expYear.className = 'error-border'
+        expYear.className = 'valid'
     } else {
-        expYear.className = 'error'
+        expYear.className = 'not-valid error'
     }
     if (/^([0-9]{13,16})$/.test(credit.value)) { //fix
 
-        credit.className = "error-border"
+        credit.className = "valid"
         creditSpan.className = 'cc-hint hint';
     } else if (credit.value === '') {
-        credit.className = "error"
+        credit.className = "not-valid error"
         creditSpan.className = 'cc';
     } else {
-        credit.className = "error"
+        credit.className = "not-valid error"
         creditSpan.className = 'cc';
     }
     if (/^([0-9]{5})$/.test(zip.value)) {
-        zip.className = "error-border"
+        zip.className = "valid"
         zipSpan.className = 'zip-hint hint';
     } else if (zip.value === '') {
-        zip.className = "error"
+        zip.className = "not-valid error"
         zipSpan.className = 'zip';
     } else {
-        zip.className = "error"
+        zip.className = "not-valid error"
         zipSpan.className = 'zip';
     }
     if (/^([0-9]{3})$/.test(cvv.value)) {
-        cvv.className = "error-border"
+        cvv.className = "valid"
         cvvSpan.className = 'cvv-hint hint';
     } else if (cvv.value === '') {
-        cvv.className = "error"
+        cvv.className = "not-valid error"
         cvvSpan.className = 'cvv';
     } else {
-        cvv.className = "error"
+        cvv.className = "not-valid error"
         cvvSpan.className = 'cvv';
     }
     console.log(5)
     if (/^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.(?:[a-zA-Z]{3}))?)$/.test(email.value)) {
-        email.className = 'error-border'
+        email.className = 'valid'
         emailSpan.className = 'email-hint hint';
     } else if (email.value === "") {
-        email.className = 'error'
+        email.className = 'not-valid error'
         emailSpan.className = 'email';
     } else {
-        email.className = 'error'
+        email.className = 'not-valid error'
         emailSpan.className = 'email';
     }
     if (names.value === "") {
-        names.className = 'error'
+        names.className = 'not-valid error'
         nameSpan.className = "name";
     } else {
-        names.className = 'error-border'
+        names.className = 'valid'
         nameSpan.className = 'name-hint hint'
     }
-    if (total$.textContent === 'Total: $0') {
-        registerForActivites.className = 'activities-box'
+    if (total$.textContent === 'Total: $0' || total$.textContent === 'Total: $0.00') {
+        registerForActivites.className = 'activities-box not-valid error'
     } else {
-        registerForActivites.className = 'activities-box error-border'
-    }
-    if (zipSpan.className === 'zip-hint hint' && cvvSpan.className === 'cvv-hint hint' && total$.textContent !== 'Total: $0' && nameSpan.className === "name-hint hint" && creditSpan.className === "cc-hint hint" && emailSpan.className === "email-hint hint" && expMonth.value !== "0" && expYear.value !== "0" ) {
+        registerForActivites.className = 'activities-box valid'
+    } total$.textContent !== 'Total: $0.00'
+    if (zipSpan.className === 'zip-hint hint' && cvvSpan.className === 'cvv-hint hint' && total$.textContent !== 'Total: $0' && total$.textContent !== 'Total: $0.00' && nameSpan.className === "name-hint hint" && creditSpan.className === "cc-hint hint" && emailSpan.className === "email-hint hint" && expMonth.value !== "0" && expYear.value !== "0" ) {
         console.log('hi')
         form.innerHTML = "You Completed The Form!!!"
     } else {
